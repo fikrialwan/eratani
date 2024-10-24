@@ -5,62 +5,44 @@ import {
   FormProps,
   Input,
   message,
+  Modal,
   Select,
 } from "antd";
 import { useState } from "react";
+import { IDummy } from "../interfaces/dummy.interface";
+import useDummy from "../stores/hooks";
 
-interface FieldType {
-  name: string;
-  email: string;
-  gender: string;
-  status: boolean;
+interface Props {
+  isModalOpen: boolean;
+  handleClose: () => void;
 }
 
-interface PayloadType {
-  name: string;
-  email: string;
-  gender: string;
-  status: string;
-}
-
-const regsiter = (payload: PayloadType) =>
-  fetch("https://gorest.co.in/public/v2/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
-    },
-    body: JSON.stringify(payload),
-  }).then((res) => res.json());
-
-function App() {
+export default function Add({ isModalOpen, handleClose }: Props) {
   const [form] = Form.useForm();
+  const { data, setData } = useDummy();
 
   const statusValue = Form.useWatch("status", form);
 
-  const [loading, setLoading] = useState(false);
-
-  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+  const onFinish: FormProps<IDummy>["onFinish"] = async (values) => {
     setLoading(true);
     const payload = {
       ...values,
+      id: data[data.length - 1].id + 1,
       status: statusValue ? "active" : "inactive",
     };
 
-    const res = await regsiter(payload);
+    setData([...data, payload]);
 
-    if (res.id) {
-      message.success("Register successfully");
-      form.resetFields();
-    } else {
-      message.error("Register failed");
-    }
+    message.success("Successfully added");
+    form.resetFields();
 
     setLoading(false);
+    handleClose();
   };
 
+  const [loading, setLoading] = useState(false);
   return (
-    <>
+    <Modal title="Add" open={isModalOpen} onCancel={handleClose} footer={null}>
       <Form
         form={form}
         name="basic"
@@ -70,8 +52,7 @@ function App() {
         onFinish={onFinish}
         autoComplete="off"
       >
-        <h1 style={{ textAlign: "center" }}>Register</h1>
-        <Form.Item<FieldType>
+        <Form.Item<IDummy>
           label="Name"
           name="name"
           rules={[{ required: true, message: "Please input your name!" }]}
@@ -79,7 +60,7 @@ function App() {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<IDummy>
           label="Email"
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
@@ -87,7 +68,7 @@ function App() {
           <Input type="email" />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<IDummy>
           label="Gender"
           name="gender"
           rules={[{ required: true, message: "Please input your gender!" }]}
@@ -107,11 +88,7 @@ function App() {
           />
         </Form.Item>
 
-        <Form.Item<FieldType>
-          name="status"
-          valuePropName="checked"
-          label="Status"
-        >
+        <Form.Item<IDummy> name="status" valuePropName="checked" label="Status">
           <Checkbox>{statusValue ? "Active" : "Inactive"}</Checkbox>
         </Form.Item>
 
@@ -121,8 +98,6 @@ function App() {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </Modal>
   );
 }
-
-export default App;
