@@ -31,10 +31,16 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white text-foreground hover:bg-transparent lg:hover:bg-white flex flex-row items-center justify-center px-[18px] w-full fixed top-0">
+    <header className="bg-white text-foreground hover:bg-transparent lg:hover:bg-white container-parent fixed top-0 z-10">
       <div className="container flex flex-row items-center justify-between py-4 text-xl">
         <Link href="/" className="relative w-16 h-5 lg:h-11 lg:w-40">
-          <Image src="/logo.webp" alt="logo" fill />
+          <Image
+            src="/logo.webp"
+            alt="logo"
+            fill
+            objectFit="contain"
+            objectPosition="left center"
+          />
         </Link>
         <nav className="hidden lg:block">
           <ul className="flex flex-row items-center gap-8">

@@ -3,7 +3,17 @@
 @tailwind utilities;
 
 @layer utilities {
+  .container-parent {
+    @apply flex flex-row items-center justify-center px-[18px] w-full
+  }
+
   .container {
     @apply max-w-7xl w-full mx-auto
+  }
+}
+
+@layer base {
+  address {
+    @apply not-italic
   }
 }

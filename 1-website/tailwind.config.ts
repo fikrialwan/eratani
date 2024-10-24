@@ -8,8 +8,11 @@ const config: Config = {
   ],
   theme: {
     colors: {
+      background: "#F3F3F3",
       foreground: "#121212",
       yellow: "#FFCD00",
+      green: "#0E9749",
+      white: "#FFFFFF",
     },
   },
   plugins: [],
