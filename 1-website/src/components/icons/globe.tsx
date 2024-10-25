@@ -15,7 +15,7 @@ export const GlobeIcon = ({
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g clip-path="url(#clip0_0_3392)">
+      <g clipPath="url(#clip0_0_3392)">
         <path
           d="M6 11C8.76142 11 11 8.76142 11 6C11 3.23858 8.76142 1 6 1C3.23858 1 1 3.23858 1 6C1 8.76142 3.23858 11 6 11Z"
           stroke={fill}

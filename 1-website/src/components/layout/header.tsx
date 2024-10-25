@@ -38,8 +38,7 @@ export const Header = () => {
             src="/logo.webp"
             alt="logo"
             fill
-            objectFit="contain"
-            objectPosition="left center"
+            className="object-contain object-left"
           />
         </Link>
         <nav className="hidden lg:block">
@@ -90,6 +89,7 @@ export const Header = () => {
                   <Link
                     href={item.link}
                     className="whitespace-nowrap w-full flex justify-center"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </Link>

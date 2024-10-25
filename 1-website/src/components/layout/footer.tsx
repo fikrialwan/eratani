@@ -121,8 +121,7 @@ const WhiteLogo = ({ className }: { className?: string }) => {
         fill
         src="/logo-white.webp"
         alt="logo"
-        objectFit="contain"
-        objectPosition="left center"
+        className="object-contain object-left"
       />
     </div>
   );
